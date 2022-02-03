@@ -58,6 +58,8 @@ Now you can run all the tests using tox:
 ```bash
 tox integration
 ```
+95% COVERAGE.
+![image](https://user-images.githubusercontent.com/46831966/152340780-b7e77bf2-d325-493d-9f06-779b3c92b6d2.png)
 
 
 ## Results

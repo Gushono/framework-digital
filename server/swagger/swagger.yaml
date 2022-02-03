@@ -1,0 +1,173 @@
+swagger: "2.0"
+info:
+  description: "Portfolio do Gustavo Honorato"
+  version: "1.0.0"
+  title: "Framework-desafio"
+  contact:
+    email: "gustavo.honoratonic@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "127.0.0.1:8080"
+basePath: "/v1"
+tags:
+  - name: "Auth"
+    description: "Operations of AUTHENTICATION"
+
+  - name: "Todos"
+    description: "Operations of TODOS"
+schemes:
+  - "https"
+  - "http"
+
+paths:
+  /auth:
+    post:
+      tags:
+        - "Auth"
+      summary: "Return the token that will be used to request in the application"
+      description: "Return the token that will be used to request in the application"
+      operationId: "post_auth"
+      produces:
+        - "application/json"
+      parameters: [ ]
+      responses:
+        200:
+          description: "Auth works!"
+          schema:
+            $ref: '#/definitions/AuthResultSchema'
+        401:
+          description: "Invalid login"
+      x-swagger-router-controller: "server.controllers.auth_controller"
+  /todos:
+    get:
+      tags:
+        - "Todos"
+      summary: "Return a list of todos"
+      description: "List of todos"
+      operationId: "get_todos"
+      produces:
+        - "application/json"
+      parameters:
+        - $ref: '#/parameters/userId'
+        - $ref: '#/parameters/title'
+        - $ref: '#/parameters/completed'
+      responses:
+        200:
+          description: "List of todos!"
+          schema:
+            $ref: '#/definitions/ListTodoSchemaResumed'
+        401:
+          description: "x-api-key missing or invalid"
+      x-swagger-router-controller: "server.controllers.todos_controller"
+  /todos/{id_todo}:
+    get:
+      tags:
+        - "Todos"
+      summary: "Return a todo by id"
+      description: "Return a todo by id"
+      operationId: "get_todos_by_id"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id_todo"
+          in: "path"
+          required: true
+          description: "Id of a todo"
+          type: "string"
+      responses:
+        200:
+          description: "Todo Entity!"
+          schema:
+            $ref: '#/definitions/TodoSchema'
+        401:
+          description: "x-api-key missing or invalid"
+      x-swagger-router-controller: "server.controllers.todos_controller"
+
+
+definitions:
+  AuthResultSchema:
+    type: object
+    properties:
+      x-api-key:
+        type: string
+
+  TodoSchema:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      title:
+        type: string
+        example: Title of todo
+      userId:
+        type: integer
+        example: 1
+      completed:
+        type: boolean
+        example: True
+
+  TodoSchemaResumed:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      title:
+        type: string
+        example: Title of todo
+
+  ListTodoSchemaResumed:
+    allOf:
+      - type: array
+        items:
+          $ref: '#/definitions/TodoSchemaResumed'
+
+  Pagination:
+    type: object
+    properties:
+      page:
+        type: integer
+        example: 2
+      has_next:
+        type: boolean
+        example: false
+      has_prev:
+        type: boolean
+        example: true
+      next_num:
+        type: integer
+        example: 3
+      pages:
+        type: integer
+        example: 100
+      per_page:
+        type: integer
+        example: 50
+      prev_num:
+        type: integer
+        example: 2
+      total:
+        type: integer
+        example: 5000
+
+parameters:
+  userId:
+    name: "userId"
+    in: "query"
+    required: false
+    description: "Id of an user"
+    type: "integer"
+  title:
+    name: "title"
+    in: "query"
+    required: false
+    description: "Title of a todo"
+    type: "string"
+  completed:
+    name: "completed"
+    in: "query"
+    required: false
+    description: "Todo completed or not"
+    type: "boolean"

@@ -1,0 +1,5 @@
+flask
+connexion
+requests
+werkzeug
+PyJWT

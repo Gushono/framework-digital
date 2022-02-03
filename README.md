@@ -30,7 +30,20 @@ python __main__.py
 
 ## Swagger
 
-To access the swagger you can use the URL http://127.0.0.1:8080/v1/ui
+To access the swagger you can use the URL localhost:8080/v1/ui
+
+# Usage
+
+## /auth
+
+To use this route, you need to use Basic Auth. The credentials are:
+
+Username: ADMIN
+Password: SecretPass
+
+## /todos and /todos/{id}
+
+To use this route, you need to pass the x-api-key in header. This token is generated in /auth api.
 
 ## Tests
 

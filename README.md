@@ -10,6 +10,9 @@ docker build --tag framework .
 docker run -e -d -p 8080:8080 --name framework framework
 ```
 
+![image](https://user-images.githubusercontent.com/46831966/152361392-b6101da3-7061-4cc4-b6bf-80d55707e4aa.png)
+
+
 # Without docker
 
 ## Installation

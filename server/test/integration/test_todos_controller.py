@@ -47,7 +47,7 @@ class TestTodosController(BaseTestCase):
         response_todos_json = response_todos.json
 
         self.assertEqual(response_todos.status_code, 200)
-        self.assertEqual(len(response_todos_json), 200)
+        self.assertEqual(len(response_todos_json), 5)
         self.assertEqual(response_todos_json[0]['id'], 1)
 
     def test_list_todos_with_invalid_assignature_token(self):
@@ -80,7 +80,7 @@ class TestTodosController(BaseTestCase):
         response_todos_json = response_todos.json
 
         self.assertEqual(response_todos.status_code, 200)
-        self.assertEqual(len(response_todos_json), 20)
+        self.assertEqual(len(response_todos_json), 5)
         self.assertEqual(response_todos_json[0]['id'], 1)
 
     def test_todos_by_id(self):

@@ -4,10 +4,12 @@ import connexion
 import jwt
 from flask import jsonify
 
-from server import Unauthorized
+from server import Unauthorized, logger
 from server.configurations.constant import LOGIN_VALID, SECRET_KEY
+from server.configurations.logger import trace_logger
 
 
+@trace_logger
 def post_auth():
     """
     Function that generate a token with the user is valid
@@ -17,10 +19,12 @@ def post_auth():
     :exceptions: Unauthorized if user and password is invalid
     """
 
+    logger.info("Initiating auth...")
     auth: dict or None = connexion.request.authorization if connexion.request.authorization else {}
     username, password = auth.get("username"), auth.get("password")
 
     if not is_login_valid(username, password):
+        logger.exception("Username and password invalid! Please, use basic auth!")
         raise Unauthorized(message="Username and password invalid! Please, use basic auth!")
 
     return jsonify({"x-api-key": generate_jwt_token(username=username)})
@@ -47,5 +51,7 @@ def generate_jwt_token(username: str) -> str:
         "username": username,
         "expiration_date": str(expiration_date)
     }, SECRET_KEY)
+
+    logger.info("Token generated!")
 
     return token

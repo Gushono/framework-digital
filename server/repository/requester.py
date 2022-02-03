@@ -1,10 +1,11 @@
 import os
 from abc import ABC, abstractmethod
+from typing import List
 
 import requests
 from requests import Response
 
-from server import Unauthorized, NotFound
+from server import Unauthorized, NotFound, logger
 
 
 class Requester(ABC):
@@ -14,7 +15,7 @@ class Requester(ABC):
             self.headers = {}
 
     @abstractmethod
-    def get_method(self, path: str, params=None) -> Response:
+    def get_method(self, path: str, params=None) -> List[dict] or dict:
         """
         Get Request
         """
@@ -32,7 +33,8 @@ class Requester(ABC):
 class RequestToJsonPlaceHolder(Requester):
     __URL = os.getenv("URL_JSON_PLACE_HOLDER") or 'https://jsonplaceholder.typicode.com'
 
-    def get_method(self, path: str, params=None) -> dict:
+    def get_method(self, path: str, params=None) -> List[dict] or dict:
+        logger.info(f"Get in {self.__URL + path}...\n")
         response: Response = requests.get(self.__URL + path, params=params)
 
         response_validated = self.validate_response(response)

@@ -11,7 +11,7 @@ def main():
     Main function for server
     """
     app = initiate_server()
-    app.run(host=HOST, port=8080, debug=True)
+    app.run(host=HOST, port=8080, debug=False)
 
 
 if __name__ == "__main__":

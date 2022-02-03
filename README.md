@@ -58,9 +58,9 @@ Now you can run all the tests using tox:
 ```bash
 tox integration
 ```
-95% COVERAGE.
-![image](https://user-images.githubusercontent.com/46831966/152340780-b7e77bf2-d325-493d-9f06-779b3c92b6d2.png)
+![image](https://user-images.githubusercontent.com/46831966/152357285-a5c9bb8d-3d4a-4a51-9fce-0da5ee5930de.png)
 
+96% COVERAGE.
 
 ## Results
 
@@ -69,7 +69,7 @@ tox integration
 - [x] Sua API deve consultar os dados utilizando a seguinte endpoint - https://jsonplaceholder.typicode.com/todos
 - [x] O retorno com sucesso deve ser um JSON no formato: {"id": "", "title": ""}
 - [x] O retorno com erro deve ser um JSON no formato: {"error": {"reason": "error description"}}
-- [x] Toda e qualquer consulta na sua API deve gerar um log com: timestamp, retorno raw e status code
+- [x] Toda e qualquer consulta na sua API deve gerar um log com: timestamp, retorno raw e status code (Decorator)
 - [x] Código publicado no github.
 - [x] Testes de integração.
   

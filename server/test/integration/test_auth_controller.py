@@ -28,8 +28,7 @@ def options(self, url: str):
 
 
 class TestAuthController(BaseTestCase):
-    """
-    """
+
     url = "auth"
 
     def test_auth_with_right_users(self):

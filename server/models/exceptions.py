@@ -37,7 +37,7 @@ class Unauthorized(ApiBaseException):
 
 class NotFound(ApiBaseException):
     status_code = 404
-    message = "Entidade não encontrada"
+    message = "Entity not found"
 
     def __init__(self, message=None, payload=None):
         self.message = message if message is not None else self.message

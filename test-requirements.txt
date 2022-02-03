@@ -1,0 +1,5 @@
+flask_testing
+Flask-Testing
+mockito
+tox
+coverage

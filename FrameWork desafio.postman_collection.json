@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "8c4a2e4c-0a84-4732-94f3-2cc828692035",
+		"name": "FrameWork desafio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AUTH -> /auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"x-api-key\", \"variable_value\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "SecretPass",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "ADMIN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}auth",
+					"host": [
+						"{{url}}auth"
+					]
+				},
+				"description": "To receive a token in the API, you must pass an user and password valid. After that, you will receive a jwt token, that is going to be used to auth in other routes."
+			},
+			"response": []
+		},
+		{
+			"name": "TODOS LIST -> /todos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{x-api-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}todos",
+					"host": [
+						"{{url}}todos"
+					]
+				},
+				"description": "Return a list of todos.\n\nTo use this route, you need to pass in the header the propertie x-api-key. Otherwise, you wil receive an Unauthorized exception."
+			},
+			"response": []
+		},
+		{
+			"name": "TODOS LIST -> /todos with params",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{x-api-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}todos?userId=3&completed=true&full_response=false",
+					"host": [
+						"{{url}}todos"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "3"
+						},
+						{
+							"key": "completed",
+							"value": "true"
+						},
+						{
+							"key": "full_response",
+							"value": "false"
+						}
+					]
+				},
+				"description": "Return a list of todos.\n\nTo use this route, you need to pass in the header the propertie x-api-key. Otherwise, you wil receive an Unauthorized exception."
+			},
+			"response": []
+		},
+		{
+			"name": "TODOS by id-> /todos/{id}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{x-api-key}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}todos/1",
+					"host": [
+						"{{url}}todos"
+					],
+					"path": [
+						"1"
+					]
+				},
+				"description": "Return a list of todos.\n\nTo use this route, you need to pass in the header the propertie x-api-key. Otherwise, you wil receive an Unauthorized exception."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "SecretPass",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "ADMIN",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

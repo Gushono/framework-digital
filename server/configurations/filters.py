@@ -4,13 +4,16 @@ from datetime import datetime
 import connexion
 import flask
 import jwt
-from jwt import InvalidSignatureError
+from jwt import InvalidSignatureError, DecodeError
 
 from server.configurations.constant import SECRET_KEY
 from server.models.exceptions import Unauthorized
 
 
 def before_request():
+    """
+    Function called before any api request
+    """
     if connexion.request.method == 'OPTIONS':
         return
 
@@ -19,6 +22,13 @@ def before_request():
 
     token_info = check_x_api_key_token_valid()
     flask.g.username = token_info.get("username")
+
+
+def basic_auth(username, password):
+    """
+    Configuring basic auth to use in swagger
+    """
+    return {'sub': username, 'scope': password}
 
 
 def is_allowed_url_without_auth() -> bool:
@@ -51,6 +61,9 @@ def check_x_api_key_token_valid() -> dict:
     """
     x_api_key = connexion.request.headers.get("x-api-key")
 
+    if not x_api_key:
+        raise Unauthorized(message="Token empty")
+
     token_info = decode_token(x_api_key)
 
     if datetime.now() >= datetime.fromisoformat(token_info.get("expiration_date")):
@@ -65,11 +78,16 @@ def decode_token(x_api_key: str) -> dict:
     """
 
     try:
+
         token = jwt.decode(x_api_key,
                            SECRET_KEY,
                            algorithms=["HS256"])
     except InvalidSignatureError as ex:
         print(ex)
         raise Unauthorized("Signature verification failed!")
+
+    except DecodeError as ex:
+        print(ex)
+        raise Unauthorized("Token invalid!")
 
     return token

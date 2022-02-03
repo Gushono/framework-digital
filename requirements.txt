@@ -1,5 +1,8 @@
 flask
 connexion
+connexion[swagger-ui]
 requests
 werkzeug
 PyJWT
+flask_cors
+gunicorn

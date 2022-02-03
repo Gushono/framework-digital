@@ -5,7 +5,8 @@ import jwt
 from flask import jsonify
 
 from server import Unauthorized, logger
-from server.configurations.constant import LOGIN_VALID, SECRET_KEY
+from server.configurations.constant import LOGIN_VALID
+from server.configurations.environments import SECRET_KEY
 from server.configurations.logger import trace_logger
 
 

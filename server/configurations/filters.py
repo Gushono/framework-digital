@@ -6,7 +6,7 @@ import flask
 import jwt
 from jwt import InvalidSignatureError, DecodeError
 
-from server.configurations.constant import SECRET_KEY
+from server.configurations.environments import SECRET_KEY
 from server.models.exceptions import Unauthorized
 
 
